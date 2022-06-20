@@ -1,0 +1,11 @@
+{
+    "name": "serverless-crm-tg-bot",
+    "version": "1.0.0",
+    "description": "This bot sends orders to store manager. The main feature of this implementation is the serverlessness for deploying on Vercel or similar solutions.",
+    "author": "Andrew Nosov (Tg: @andrewnosov)",
+    "license": "ISC",
+    "dependencies": {
+        "node-telegram-bot-api": "^0.57.0"
+    },
+    "devDependencies": {}
+}
