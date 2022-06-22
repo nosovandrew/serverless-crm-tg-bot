@@ -1,5 +1,6 @@
 import TelegramBot from 'node-telegram-bot-api';
 
+// allowed origin by CORS in dev/production mode
 const origin =
     process.env.VERCEL_ENV === 'production'
         ? process.env.PROD_APP_URL
@@ -7,7 +8,7 @@ const origin =
 
 // enable CORS in a single serverless func (wrapper)
 const allowCors = (fn) => async (req, res) => {
-    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('Access-Control-Allow-Origin', origin.toString());
     res.setHeader(
         'Access-Control-Allow-Methods',
