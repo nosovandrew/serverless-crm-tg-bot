@@ -8,7 +8,7 @@ const origin =
 // enable CORS in a single serverless func (wrapper)
 const allowCors = (fn) => async (req, res) => {
     res.setHeader('Access-Control-Allow-Credentials', true);
-    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Origin', origin.toString());
     res.setHeader(
         'Access-Control-Allow-Methods',
         'GET,OPTIONS,PATCH,DELETE,POST,PUT'
