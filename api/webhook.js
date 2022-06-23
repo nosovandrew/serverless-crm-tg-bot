@@ -16,7 +16,7 @@ const allowCors = (fn) => async (req, res) => {
     );
     res.setHeader(
         'Access-Control-Allow-Headers',
-        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, X-Api-Key'
     );
     if (req.method === 'OPTIONS') {
         res.status(200).end();
@@ -27,6 +27,13 @@ const allowCors = (fn) => async (req, res) => {
 
 // bot send msg handler
 const handler = async (req, res) => {
+    const apiKey = req.headers['x-api-key']; // get API key from app request
+    // check if apiKey is available and correct
+    if (!apiKey || apiKey !== process.env.API_KEY) {
+        res.status(401).end('You have no rights for this route.');
+        return;
+    }
+    // main logic
     try {
         const bot = new TelegramBot(process.env.BOT_TOKEN); // create telegram bot handler
 
