@@ -27,9 +27,9 @@ const allowCors = (fn) => async (req, res) => {
 
 // bot send msg handler
 const handler = async (req, res) => {
-    const apiKey = req.headers['x-api-key']; // get API key from app request
+    const apiKeyFromApp = req.headers['x-api-key']; // get API key from app request
     // check if apiKey is available and correct
-    if (!apiKey || apiKey !== process.env.API_KEY) {
+    if (!apiKeyFromApp || apiKeyFromApp !== process.env.API_KEY) {
         res.status(401).end('You have no rights for this route.');
         return;
     }
