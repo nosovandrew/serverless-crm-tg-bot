@@ -4,7 +4,7 @@ import TelegramBot from 'node-telegram-bot-api';
 const origin =
     process.env.VERCEL_ENV === 'production'
         ? process.env.PROD_APP_URL
-        : process.env.LOCAL_APP_URL;
+        : process.env.DEV_APP_URL;
 
 // enable CORS in a single serverless func (wrapper)
 const allowCors = (fn) => async (req, res) => {
