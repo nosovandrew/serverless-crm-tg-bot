@@ -37,6 +37,8 @@ const handler = async (req, res) => {
     try {
         const bot = new TelegramBot(process.env.BOT_TOKEN); // create telegram bot handler
 
+        console.log(body);
+
         // check request method
         if (req.method === 'POST') {
             const { body } = req; // get POST request body from app
