@@ -44,23 +44,23 @@ const handler = async (req, res) => {
             // create Telegram msg
             let orderMsg = `
                 🚚 **Shipping Information**:
-                First Name: ${orderData.shipping.firstName}
-                Last Name: ${orderData.shipping.lastName}
-                Address: ${orderData.shipping.address}
-                Postal Code: ${orderData.shipping.postalCode}
+                First Name: ${body.shipping.firstName}
+                Last Name: ${body.shipping.lastName}
+                Address: ${body.shipping.address}
+                Postal Code: ${body.shipping.postalCode}
                 
                 📞 **Phone Number**:
-                ${orderData.phoneNumber}
+                ${body.phoneNumber}
                 
                 📦 **Items**:
-                ${orderData.items.map(item => `
+                ${body.items.map(item => `
                     - Item: ${item.item}
-                    - Price: ${item.price} ${orderData.currency}
+                    - Price: ${item.price} ${body.currency}
                     - SKU: ${item.sku}
                     - Quantity for Sale: ${item.qtyForSale} `).join('')}
                 
                 💳 **Total**:
-                ${orderData.total} ${orderData.currency}
+                ${body.total} ${body.currency}
             `;
 
             await bot.sendMessage(process.env.ADMIN_TG_ID, orderMsg); // send msg to store manager in Telegram
