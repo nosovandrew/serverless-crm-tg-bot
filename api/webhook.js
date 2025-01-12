@@ -42,27 +42,22 @@ const handler = async (req, res) => {
             const { body } = req; // get POST request body from app
 
             // create Telegram msg
-            let orderMsg = `
-            <b>Shipping Information:</b>
-            First Name: ${body.shipping.firstName}
-            Last Name: ${body.shipping.lastName}
-            Address: ${body.shipping.address}
-            Postal Code: ${body.shipping.postalCode}
+            let orderMsg = `**Shipping Information:**
+            - First Name: ${body.shipping.firstName}
+            - Last Name: ${body.shipping.lastName}
+            - Address: ${body.shipping.address}
+            - Postal Code: ${body.shipping.postalCode}
             
-            <b>Phone Number:<b> ${body.phoneNumber}
+            **Phone Number:**
+            - ${body.phoneNumber}
             
-            <b>Items:<b>
-            ${body.items.map(item => `
-             - Item: ${item.item}
-             - Price: ${item.price} ${body.currency}
-             - SKU: ${item.sku}
-             - Quantity for Sale: ${item.qtyForSale}
-            `).join('')}
+            **Items:**
+            ${body.items.map(item => ` - ${item.item}: ${item.price} ${body.currency} (SKU: ${item.sku}, Quantity: ${item.qtyForSale}) `).join('')}
             
-            <b>Total:</b> ${body.total} ${body.currency}
-            `;
+            **Total:**
+            - ${body.total} ${body.currency} `;
 
-            await bot.sendMessage(process.env.ADMIN_TG_ID, orderMsg); // send msg to store manager in Telegram
+            await bot.sendMessage(process.env.ADMIN_TG_ID, orderMsg, { parseMode: 'Markdown' }); // send msg to store manager in Telegram
         }
     } catch (err) {
         // log error into the Vercel console
