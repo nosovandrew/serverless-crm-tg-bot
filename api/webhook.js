@@ -42,22 +42,19 @@ const handler = async (req, res) => {
             const { body } = req; // get POST request body from app
 
             // create Telegram msg
-            let orderMsg = `**Shipping Information:**
-            - First Name: ${body.shipping.firstName}
-            - Last Name: ${body.shipping.lastName}
-            - Address: ${body.shipping.address}
-            - Postal Code: ${body.shipping.postalCode}
-            
-            **Phone Number:**
-            - ${body.phoneNumber}
-            
-            **Items:**
-            ${body.items.map(item => ` - ${item.item}: ${item.price} ${body.currency} (SKU: ${item.sku}, Quantity: ${item.qtyForSale}) `).join('')}
-            
-            **Total:**
-            - ${body.total} ${body.currency} `;
+            let orderMsg = '📬 NEW ORDER:\n';
+            orderMsg += '📞 Phone number: ' + body.phoneNumber + '\n';
+            orderMsg += '🚚 Shipping:\n';
+            orderMsg += 'customer: ' + body.shipping.firstName + ' ' + body.shipping.lastName + '\n';
+            orderMsg += 'address: ' + body.shipping.address + '\n';
+            orderMsg += 'postal code: ' + body.shipping.postalCode + '\n';
+            orderMsg += '🛒 Items:\n';
+            body.items.map(
+                (_item) => (orderMsg += `Name: ${_item.item}\nSKU: ${_item.sku}\nQTY: ${_item.qtyForSale}\n`)
+            );
+            orderMsg += '💰 Total: ' + body.total + ' ' + body.currency;
 
-            await bot.sendMessage(process.env.ADMIN_TG_ID, orderMsg, { parseMode: 'Markdown' }); // send msg to store manager in Telegram
+            await bot.sendMessage(process.env.ADMIN_TG_ID, orderMsg); // send msg to store manager in Telegram
         }
     } catch (err) {
         // log error into the Vercel console
