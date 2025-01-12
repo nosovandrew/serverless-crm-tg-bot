@@ -42,15 +42,15 @@ const handler = async (req, res) => {
             const { body } = req; // get POST request body from app
 
             // create Telegram msg
-            let orderMsg = '📬 NEW ORDER:\n';
+            let orderMsg = '📬 NEW ORDER:\n\n';
             orderMsg += '📞 Phone number: ' + body.phoneNumber + '\n';
             orderMsg += '🚚 Shipping:\n';
-            orderMsg += 'customer: ' + body.shipping.firstName + ' ' + body.shipping.lastName + '\n';
-            orderMsg += 'address: ' + body.shipping.address + '\n';
-            orderMsg += 'postal code: ' + body.shipping.postalCode + '\n';
-            orderMsg += '🛒 Items:\n';
+            orderMsg += ' - customer: ' + body.shipping.firstName + ' ' + body.shipping.lastName + '\n';
+            orderMsg += ' - address: ' + body.shipping.address + '\n';
+            orderMsg += ' - postal code: ' + body.shipping.postalCode + '\n\n';
+            orderMsg += '🛒 Items:\n\n';
             body.items.map(
-                (_item) => (orderMsg += `Name: ${_item.item}\nSKU: ${_item.sku}\nQTY: ${_item.qtyForSale}\n`)
+                (_item) => (orderMsg += `Name: ${_item.item}\nSKU: ${_item.sku}\nPrice: ${_item.price}\nQTY: ${_item.qtyForSale}\n\n`)
             );
             orderMsg += '💰 Total: ' + body.total + ' ' + body.currency;
 
