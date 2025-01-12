@@ -41,11 +41,9 @@ const handler = async (req, res) => {
         if (req.method === 'POST') {
             const { body } = req; // get POST request body from app
 
-            console.log(body);
-
             // create Telegram msg
             let orderMsg = '📬 NEW ORDER:\n';
-            orderMsg += 'Customer info: ' + body.customer.messenger + '\n';
+            orderMsg += 'Customer info:' + '\n```\n' + JSON.stringify(body) + '\n```';
 
             await bot.sendMessage(process.env.ADMIN_TG_ID, orderMsg); // send msg to store manager in Telegram
         }
